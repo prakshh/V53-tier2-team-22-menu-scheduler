@@ -6,6 +6,7 @@ import { startOfWeek, addDays, format } from 'date-fns';
 import { fetchDishes } from '../utils/api';
 import { getAllergies } from '../utils/storage';
 import { jsPDF } from 'jspdf';
+import * as XLSX from 'xlsx';
 
 export const WeeklyScheduler = () => {
   const [startDate, setStartDate] = useState(startOfWeek(new Date(), { weekStartsOn: 1 }));
@@ -73,6 +74,20 @@ export const WeeklyScheduler = () => {
     doc.save('weekly-menu.pdf');
   };
 
+  const exportToExcel = () => {
+    const ws = XLSX.utils.json_to_sheet(
+        schedule.schedule.map(day => ({
+        Date: format(day.date, 'EEEE, MMM d'),
+        Dish: day.isDayOff ? 'Day Off' : day.dish?.name || 'No dish assigned',
+        Calories: day.isDayOff ? '-' : day.dish?.calories || '-'
+        }))
+    );
+    
+    const wb = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, 'Menu Schedule');
+    XLSX.writeFile(wb, 'weekly-menu.xlsx');
+  };
+
   if (loading) return <div>Loading...</div>;
   if (error) return <div className="text-red-500">{error}</div>;
 
@@ -102,6 +117,13 @@ export const WeeklyScheduler = () => {
           >
             <Download size={20} />
             PDF
+          </button>
+          <button
+            onClick={exportToExcel}
+            className="bg-indigo-500 text-white p-2 rounded-md hover:bg-indigo-600 flex items-center gap-2"
+          >
+            <Download size={20} />
+            Excel
           </button>
         </div>
       </div>
