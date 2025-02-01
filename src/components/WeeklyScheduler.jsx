@@ -1,10 +1,11 @@
 import { useState, useEffect } from 'react';
 import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
-import { Calendar, RefreshCw } from 'lucide-react';
+import { Calendar, RefreshCw, Download } from 'lucide-react';
 import { startOfWeek, addDays, format } from 'date-fns';
 import { fetchDishes } from '../utils/api';
 import { getAllergies } from '../utils/storage';
+import { jsPDF } from 'jspdf';
 
 export const WeeklyScheduler = () => {
   const [startDate, setStartDate] = useState(startOfWeek(new Date(), { weekStartsOn: 1 }));
@@ -58,6 +59,20 @@ export const WeeklyScheduler = () => {
     setSchedule({ ...schedule, schedule: newSchedule });
   };
 
+  const exportToPDF = () => {
+    const doc = new jsPDF();
+    doc.text('Weekly Menu Schedule', 20, 20);
+    
+    schedule.schedule.forEach((day, index) => {
+        const yPos = 40 + (index * 10);
+        const dateStr = format(day.date, 'EEEE, MMM d');
+        const menuText = day.isDayOff ? 'Day Off' : day.dish?.name || 'No dish assigned';
+        doc.text(`${dateStr}: ${menuText}`, 20, yPos);
+    });
+    
+    doc.save('weekly-menu.pdf');
+  };
+
   if (loading) return <div>Loading...</div>;
   if (error) return <div className="text-red-500">{error}</div>;
 
@@ -78,6 +93,15 @@ export const WeeklyScheduler = () => {
           >
             <RefreshCw size={20} />
             Regenerate
+          </button>
+        </div>
+        <div className="flex gap-2">
+          <button
+            onClick={exportToPDF}
+            className="bg-blue-500 text-white p-2 rounded-md hover:bg-blue-600 flex items-center gap-2"
+          >
+            <Download size={20} />
+            PDF
           </button>
         </div>
       </div>
