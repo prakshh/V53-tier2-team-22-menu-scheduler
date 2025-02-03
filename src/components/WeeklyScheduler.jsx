@@ -35,8 +35,9 @@ export const WeeklyScheduler = () => {
     const allergies = getAllergies();
     const filteredDishes = availableDishes.filter(dish => 
       !allergies.some(allergy => 
+        // dish.name.toLowerCase().includes(allergy.allergen.toLowerCase()) || // Check dish name
         dish.ingredients.some(ingredient => 
-          ingredient.toLowerCase().includes(allergy.allergen.toLowerCase())
+          ingredient.toLowerCase().includes(allergy.allergen.toLowerCase()) // Check ingredients
         )
       )
     );

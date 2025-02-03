@@ -40,7 +40,7 @@ export const AllergyManager = () => {
         />
         <button
           onClick={handleAddAllergy}
-          className="bg-blue-500 text-white p-2 rounded-md hover:bg-blue-600 flex items-center gap-2"
+          className="bg-blue-500 text-white p-2 rounded-md hover:bg-blue-600 flex items-center gap-0.2"
         >
           <PlusCircle size={20} />
           Add
