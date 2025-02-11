@@ -1,41 +1,98 @@
-# voyage-tasks
+# Project Overview
 
-Your project's `readme` is as important to success as your code. For 
-this reason you should put as much care into its creation and maintenance
-as you would any other component of the application.
+## 1. The app has two main components:
 
-If you are unsure of what should go into the `readme` let this article,
-written by an experienced Chingu, be your starting point - 
-[Keys to a well written README](https://tinyurl.com/yk3wubft).
+* AllergyManager: Allows users to add/remove allergens, storing them in localStorage.
+* WeeklyScheduler: Fetches dish data from an API, filters out allergens, and creates a weekly meal plan. Users can export the plan to PDF or Excel.
 
-And before we go there's "one more thing"! Once you decide what to include
-in your `readme` feel free to replace the text we've provided here.
+## 2. Folder Structure
+* src/components/AllergyManager.jsx → Manages allergies
+* src/components/WeeklyScheduler.jsx → Generates and displays a weekly meal plan
+* src/utils/api.js → Fetches dishes from an API
+* src/utils/storage.js → Saves/retrieves allergy data from localStorage
+* src/App.js → Main app structure
+* src/index.css → Tailwind CSS for styling
+* src/main.jsx → Renders the root React component
+* index.html → Entry point for the app
 
-> Own it & Make it your Own!
+## 3. Components Breakdown
 
-## Team Documents
+### A. AllergyManager.jsx (Managing Allergies)
 
-You may find these helpful as you work together to organize your project.
+* Uses useState to store allergy data.
+* Retrieves stored allergies from localStorage (getAllergies).
 
-- [Team Project Ideas](./docs/team_project_ideas.md)
-- [Team Decision Log](./docs/team_decision_log.md)
+#### Allows users to:
 
-Meeting Agenda templates (located in the `/docs` directory in this repo):
+* Add a new allergen (saved to localStorage).
+* Remove an allergen from the list.
+* Updates state and storage on any change.
 
-- Meeting - Voyage Kickoff --> ./docs/meeting-voyage_kickoff.docx
-- Meeting - App Vision & Feature Planning --> ./docs/meeting-vision_and_feature_planning.docx
-- Meeting - Sprint Retrospective, Review, and Planning --> ./docs/meeting-sprint_retrospective_review_and_planning.docx
-- Meeting - Sprint Open Topic Session --> ./docs/meeting-sprint_open_topic_session.docx
+### B. WeeklyScheduler.jsx (Meal Planning)
 
-## Our Team
+* Uses useState and useEffect to fetch dish data and generate a schedule.
+* Fetches dishes from https://menus-api.vercel.app/dishes.
+* Filters dishes based on stored allergens (i.e., avoids meals containing allergens).
+* Generates a weekly meal schedule (randomized).
 
-Everyone on your team should add their name along with a link to their GitHub
-& optionally their LinkedIn profiles below. Do this in Sprint #1 to validate
-your repo access and to practice PR'ing with your team *before* you start
-coding!
+#### Allows users to:
 
-- Vasanthakumar: [GitHub](https://github.com/cpvasanth) / [LinkedIn](https://linkedin.com/in/cpvasanth)
-- Prakash Das: [GitHub](https://github.com/prakshh) / [LinkedIn](https://linkedin.com/in/liaccountname)
+* Mark a day as "Day Off" (no meal assigned).
+* Regenerate the schedule with new dishes.
+* Export the schedule to: PDF using jsPDF and Excel using xlsx
 
-   ...
-- Teammate name #n: [GitHub](https://github.com/ghaccountname) / [LinkedIn](https://linkedin.com/in/liaccountname)
+### C. api.js (Fetching Dish Data)
+
+* Fetches dish data from an external API.
+* Handles errors if fetching fails.
+
+### D. storage.js (Storing Allergies)
+
+* Saves/retrieves allergy data from localStorage.
+
+## 4. App.js (Main Layout)
+
+Displays:
+* Header (Menu Scheduler title)
+* AllergyManager
+* WeeklyScheduler
+* Uses Tailwind CSS for styling.
+
+## 5. Other Setup Files
+
+* index.css → Uses Tailwind CSS utilities.
+* main.jsx → Renders <App /> inside #root (React's entry point).
+* index.html → Defines the root div where the app is injected.
+
+## 6. How the App Works
+
+* User adds allergies → Stored in localStorage.
+* Dishes are fetched from API.
+
+Schedule is generated:
+* Filters out dishes containing allergens.
+* Randomly assigns meals to each day.
+
+User can modify the schedule:
+* Mark a day off.
+* Regenerate meals.
+* Export to PDF/Excel.
+* Data persists (Allergies stored in localStorage).
+
+## 7. Technologies Used
+
+* React (State management, Hooks)
+* Tailwind CSS (Styling)
+* date-fns (Date formatting)
+* lucide-react (Icons)
+* jsPDF & xlsx (Exporting data)
+* Vite (React bundler)
+
+## 8. Summary
+
+This is a React-based meal planning app that: ✔️ Manages food allergies
+✔️ Fetches dishes from an API
+✔️ Generates a weekly meal plan
+✔️ Allows modifications (day off, regeneration)
+✔️ Exports schedules to PDF & Excel
+✔️ Uses localStorage to persist allergy data
