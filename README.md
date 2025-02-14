@@ -1,4 +1,23 @@
-# Project Overview
+# Menu Scheduler
+
+## [LIVE Demo](https://menuscheduler.netlify.app/)
+
+![menuscheduler](images/menuscheduler.png)
+
+## Project Overview
+
+Menu Scheduler is a web application project that focuses on developing a menu scheduling application that allows managers to create and share weekly menus for staff workers. The application ensures employees have clear visibility of the planned meals while addressing specific dietary restrictions and allergies.
+
+## How to run locally :
+
+- Clone this repo
+- Open a terminal and go to the project folder (here, it is `V53-tier2-team-22`)
+- Now, `npm install`
+- Then, `npm run dev`
+
+**If you have followed the above steps, your project should be running on localhost**
+
+## Features :
 
 ## 1. The app has two main components:
 
@@ -96,3 +115,22 @@ This is a React-based meal planning app that: ✔️ Manages food allergies
 ✔️ Allows modifications (day off, regeneration)
 ✔️ Exports schedules to PDF & Excel
 ✔️ Uses localStorage to persist allergy data
+
+
+
+## Show your support
+
+📌 Please feel free to contribute to this project with your commits
+
+Give a ⭐ if you like this website! You can fork it and contribute
+
+## Can I contribute?
+
+Sure, open an issue, point out errors, and what not? Wanna fix something yourselves? You're welcome to open a PR.
+
+
+## The Team -
+
+**Product Owner cum Developer** - Prakash Das [Github](https://github.com/prakshh) 
+
+**Developer** - Vasanthakumar [Github](https://github.com/cpvasanth)
